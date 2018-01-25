@@ -3,6 +3,7 @@ package com.butchjgo.linkservice.repository;
 import com.butchjgo.linkservice.common.domain.AccountInfo;
 import com.butchjgo.linkservice.common.entity.BadURL;
 import com.butchjgo.linkservice.common.entity.SupportedPattern;
+import com.butchjgo.linkservice.common.service.AccountService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -40,6 +41,14 @@ public class LinkserviceRepositoryApplication {
         HessianServiceExporter exporter = new HessianServiceExporter();
         exporter.setServiceInterface(SupportedPatternRepository.class);
         exporter.setService(repository);
+        return exporter;
+    }
+
+    @Bean(name = "/account")
+    RemoteExporter accountx(AccountInfoController accountInfoController) {
+        HessianServiceExporter exporter = new HessianServiceExporter();
+        exporter.setService(accountInfoController);
+        exporter.setServiceInterface(AccountService.class);
         return exporter;
     }
 
